@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>이천 모험지도 · QR 완료 연출 시안</title>
+  <style>
+    :root{--ink:#17343b;--teal:#087a73;--orange:#f26b32;--yellow:#ffd02c;--gold:#ffad17;--sky:#cfeef7}
+    *{box-sizing:border-box}html,body{margin:0;min-height:100%;background:#d9e9ed;font-family:Pretendard,"Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif;color:var(--ink)}
+    .phone{position:relative;width:min(100%,430px);height:100svh;min-height:820px;max-height:932px;margin:auto;overflow:hidden;background:linear-gradient(180deg,#dff7fb,#b9e5ee 65%,#fff6e5)}
+    .hud{position:absolute;z-index:8;inset:0 0 auto;padding:16px;background:rgba(238,252,254,.86);backdrop-filter:blur(10px)}
+    .top{display:flex;justify-content:space-between;align-items:center}.brand{display:flex;align-items:center;gap:9px;font-size:18px;font-weight:900}.mark{display:grid;place-items:center;width:38px;height:38px;border-radius:13px;background:var(--teal);color:#fff;font-size:22px;transform:rotate(-4deg)}
+    .chip{padding:8px 11px;border-radius:15px;background:#fff;font-size:13px;font-weight:900;color:#075f5b;box-shadow:0 5px 12px rgba(22,76,84,.12)}
+    .level{margin-top:10px;padding:11px 13px;border-radius:18px;background:#fff;font-size:16px;font-weight:900;box-shadow:0 7px 18px rgba(22,76,84,.10)}.level-line{display:flex;justify-content:space-between}.level-line span:last-child{color:#7b5300}.bar{height:11px;margin-top:8px;border-radius:99px;background:#dbe4e4;overflow:hidden}.bar i{display:block;width:66.666%;height:100%;border-radius:inherit;background:linear-gradient(90deg,#ff9f17,#ffdb3d);animation:fill 1.1s cubic-bezier(.2,.9,.2,1) both;box-shadow:0 0 12px rgba(255,188,18,.8)}
+    @keyframes fill{from{width:33.333%}to{width:66.666%}}
+    .world{position:absolute;inset:128px 0 0;opacity:.66;filter:saturate(.9) blur(1px)}.world svg{width:100%;height:100%}
+    .sheet{position:absolute;z-index:3;left:0;right:0;bottom:0;height:300px;border-radius:28px 28px 0 0;background:rgba(255,255,255,.82);box-shadow:0 -12px 30px rgba(34,72,79,.18)}
+    .dim{position:absolute;z-index:9;inset:0;background:rgba(10,52,59,.24);backdrop-filter:blur(2px)}
+    .flash{position:absolute;z-index:10;inset:0;background:white;animation:flash .55s ease-out both;pointer-events:none}@keyframes flash{0%{opacity:1}55%{opacity:.28}100%{opacity:0}}
+    .burst{position:absolute;z-index:11;left:50%;top:48%;width:470px;height:470px;transform:translate(-50%,-50%);border-radius:50%;background:repeating-conic-gradient(from 0deg,rgba(255,207,38,.92) 0 7deg,rgba(255,255,255,0) 7deg 17deg);mask-image:radial-gradient(circle,transparent 0 24%,#000 38%,transparent 74%);opacity:.82;animation:spin 9s linear infinite}@keyframes spin{to{transform:translate(-50%,-50%) rotate(360deg)}}
+    .glow{position:absolute;z-index:11;left:50%;top:48%;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,#fff 0 8%,#ffe371 26%,rgba(255,155,30,.54) 48%,transparent 73%);transform:translate(-50%,-50%)}
+    .piece{position:absolute;z-index:15;left:50%;top:45%;width:152px;height:152px;filter:drop-shadow(0 16px 18px rgba(130,65,0,.34));transform:translate(-50%,-50%);animation:arrive 1s cubic-bezier(.16,1.2,.32,1) both}@keyframes arrive{0%{opacity:0;transform:translate(-50%,-50%) scale(.2) rotate(-150deg)}70%{opacity:1;transform:translate(-50%,-50%) scale(1.12) rotate(12deg)}100%{transform:translate(-50%,-50%) scale(1) rotate(0)}}
+    .piece svg{width:100%;height:100%}.piece::after{content:"";position:absolute;inset:14px;border-radius:30%;background:linear-gradient(125deg,rgba(255,255,255,.78),transparent 30%);mix-blend-mode:screen;clip-path:polygon(0 0,72% 0,100% 100%,30% 100%)}
+    .spark{position:absolute;z-index:14;width:12px;height:12px;background:#fff6a6;clip-path:polygon(50% 0,61% 37%,100% 50%,61% 63%,50% 100%,39% 63%,0 50%,39% 37%);filter:drop-shadow(0 0 6px #ff9b16);animation:twinkle 1.2s ease-in-out infinite alternate}.s1{left:16%;top:35%;width:18px;height:18px}.s2{right:15%;top:40%}.s3{left:23%;top:58%}.s4{right:21%;top:60%;width:20px;height:20px}.s5{right:31%;top:27%;width:10px;height:10px}.s6{left:31%;top:25%;width:9px;height:9px}@keyframes twinkle{to{transform:scale(.45) rotate(45deg);opacity:.5}}
+    .message{position:absolute;z-index:16;left:24px;right:24px;top:59%;padding:19px 18px 17px;border:2px solid rgba(255,178,23,.55);border-radius:22px;background:rgba(255,255,255,.96);text-align:center;box-shadow:0 17px 34px rgba(91,51,3,.22);animation:rise .7s .35s ease-out both}@keyframes rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+    .eyebrow{display:inline-flex;align-items:center;gap:5px;padding:5px 9px;border-radius:99px;background:#fff0c2;color:#874d00;font-size:12px;font-weight:900}.message h1{margin:9px 0 4px;font-size:25px;letter-spacing:-.7px}.message p{margin:0;color:#526a70;font-size:16px;font-weight:700;line-height:1.45}.message strong{color:#a95300}.next{display:flex;justify-content:center;align-items:center;gap:6px;margin-top:12px;color:#075f5b;font-size:14px;font-weight:900}.next span{display:grid;place-items:center;width:27px;height:27px;border-radius:9px;background:#dff7f3}.continue{display:flex;align-items:center;justify-content:center;height:48px;margin-top:12px;border-radius:14px;background:#087a73;color:#fff;text-decoration:none;font-size:16px;font-weight:900}
+    .caption{position:absolute;z-index:16;left:0;right:0;bottom:17px;text-align:center;color:#fff;font-size:12px;font-weight:800;text-shadow:0 1px 3px rgba(0,0,0,.4)}
+  </style>
+</head>
+<body>
+<main class="phone" aria-label="QR 인증 성공 후 퍼즐 조각 획득 연출">
+  <header class="hud"><div class="top"><div class="brand"><span class="mark">⌁</span>이천 모험지도</div><div class="chip">MY 퍼즐 · 2/3</div></div><div class="level"><div class="level-line"><span>동 · 도자 예술맵</span><span>2 / 3</span></div><div class="bar"><i></i></div></div></header>
+  <div class="world" aria-hidden="true"><svg viewBox="0 0 430 804"><g fill="none" stroke="#fff" stroke-width="3" stroke-dasharray="8 8"><polygon points="-20,130 54,87 128,130 128,216 54,259 -20,216"/><polygon points="302,90 376,47 450,90 450,176 376,219 302,176"/></g><path d="M76 265C153 199 237 206 342 270" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round" stroke-dasharray="3 15"/><g transform="translate(35 190)"><polygon points="0 70 70 30 140 70 70 110" fill="#5cc5b4"/><ellipse cx="70" cy="70" rx="39" ry="20" fill="#4ac4e2"/></g><g transform="translate(150 170)"><polygon points="0 80 75 37 150 80 75 123" fill="#74d3bd"/><path d="m43 77 33-21 32 21-32 19Z" fill="#ef7139"/><path d="M54 77v31m44-31v31" stroke="#6d4a38" stroke-width="6"/></g><g transform="translate(292 220)" opacity=".55"><polygon points="0 60 60 25 120 60 60 95" fill="#98a4a6"/><rect x="35" y="42" width="50" height="42" fill="#727f82"/></g></svg></div>
+  <div class="sheet" aria-hidden="true"></div><div class="dim"></div><div class="flash"></div><div class="burst"></div><div class="glow"></div>
+  <i class="spark s1"></i><i class="spark s2"></i><i class="spark s3"></i><i class="spark s4"></i><i class="spark s5"></i><i class="spark s6"></i>
+  <div class="piece" aria-hidden="true"><svg viewBox="0 0 180 180"><defs><linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff19b"/><stop offset=".26" stop-color="#ffc31c"/><stop offset=".65" stop-color="#f58516"/><stop offset="1" stop-color="#ffb923"/></linearGradient></defs><path d="M30 31h40c-2 7 3 17 13 19 13 2 23-11 17-19h49v42c-9-4-22 3-21 15 1 12 13 18 21 13v48h-47c4-10-3-22-15-22s-19 12-15 22H30v-47c10 5 23-2 23-14 0-13-13-20-23-15V31Z" fill="url(#gold)" stroke="#fff2a8" stroke-width="6"/><path d="M54 55h70M54 71h49" stroke="#fff" stroke-opacity=".5" stroke-width="7" stroke-linecap="round"/></svg></div>
+  <section class="message"><span class="eyebrow">✓ 현장 QR 인증 완료</span><h1>황금 조각을 찾았어요!</h1><p><strong>사기막골도예촌 퀘스트 완료</strong><br/>퍼즐이 2/3까지 맞춰졌어요.</p><div class="next"><span>3</span>다음 장소: 이천세계도자센터</div><a class="continue" href="01-home-hub.html">4방 허브로 돌아가기</a></section>
+  <div class="caption">0.3초 화이트 플래시 → 빛줄기·별 → 조각 등장 · 전체 연출 3초 이내</div>
+</main>
+</body>
+</html>

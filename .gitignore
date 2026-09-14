@@ -1,0 +1,14 @@
+# Local build output and dependencies
+**/.next/
+**/node_modules/
+*.log
+
+# OS and render caches
+.DS_Store
+Thumbs.db
+.chrome-profile-render/
+
+# Previous experiments and third-party design references
+icheon-1/
+imported_design/
+stitch_together_ai_design_system_prd/

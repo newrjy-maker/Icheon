@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>이천 모험지도 · 개인정보 없는 회원가입</title>
+  <style>
+    :root{--night:#07151b;--panel:#12252b;--line:#294148;--mint:#72dfd7;--teal:#22b7af;--orange:#ff843d;--white:#f7ffff;--muted:#96acb0}
+    *{box-sizing:border-box}html,body{margin:0;min-height:100%;background:#102026;color:var(--white);font-family:Pretendard,"Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif}button,input{font:inherit}
+    .phone{position:relative;width:min(100%,430px);height:100svh;min-height:820px;max-height:932px;margin:auto;overflow:hidden;background:radial-gradient(circle at 70% 35%,#12383b 0,transparent 38%),linear-gradient(180deg,#0d2025,var(--night))}
+    header{display:grid;grid-template-columns:48px 1fr 48px;align-items:center;height:66px;padding:0 14px;border-bottom:1px solid rgba(255,255,255,.07)}header h1{margin:0;text-align:center;font-size:19px}.back{display:grid;place-items:center;width:48px;height:48px;border:0;background:transparent;color:#fff;font-size:30px;cursor:pointer}.step{justify-self:end;color:var(--mint);font-size:12px;font-weight:900}
+    form{height:calc(100% - 142px);overflow-y:auto;padding:14px 20px 20px;scrollbar-width:none}form::-webkit-scrollbar{display:none}.section{margin-bottom:17px}.label-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}.label-row h2{margin:0;font-size:16px}.label-row span{color:var(--mint);font-size:12px;font-weight:900}
+    .avatars{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}.avatar{min-height:96px;padding:7px 4px;border:1px solid var(--line);border-radius:18px;background:rgba(18,37,43,.76);color:var(--muted);font-size:12px;font-weight:900;cursor:pointer}.avatar i{display:grid;place-items:center;width:46px;height:46px;margin:0 auto 6px;border:1px solid #2c4a50;border-radius:13px;background:#1b3439;font-style:normal;font-size:22px}.avatar.selected{border:2px solid var(--mint);background:rgba(26,76,77,.78);color:#fff;box-shadow:0 0 14px rgba(114,223,215,.38),inset 0 0 12px rgba(114,223,215,.09)}.avatar.selected i{background:#285b5c;color:var(--mint)}
+    .privacy{display:flex;gap:10px;margin:0 0 14px;padding:10px 12px;border:1px solid #38646a;border-radius:14px;background:rgba(21,59,63,.72);color:#c5d9da;font-size:11px;line-height:1.4}.privacy i{display:grid;place-items:center;flex:0 0 34px;height:34px;border-radius:11px;background:#1d5557;color:var(--mint);font-style:normal}.privacy strong{display:block;color:var(--mint);font-size:13px}
+    .input{display:flex;align-items:center;gap:10px;height:54px;padding:0 13px;border:1px solid #365058;border-radius:14px;background:rgba(17,36,42,.72)}.input:focus-within{border-color:var(--mint);box-shadow:0 0 0 3px rgba(114,223,215,.1)}.input.error{border-color:var(--orange);box-shadow:0 0 0 3px rgba(255,132,61,.12)}.input span{color:var(--mint);font-size:20px}.input input{width:100%;border:0;outline:0;background:transparent;color:#fff;font-size:16px;font-weight:800}.input input::placeholder{color:#768d91}.hint{margin:7px 2px 0;color:#9db0b3;font-size:11px;font-weight:700}.hint b{color:var(--mint)}.error-text{min-height:17px;margin:5px 2px 0;color:#ffad7c;font-size:11px;font-weight:900}
+    .choices{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.choice{height:46px;border:1px solid var(--line);border-radius:13px;background:#10242a;color:var(--muted);font-size:14px;font-weight:800;cursor:pointer}.choice.selected{border-color:var(--mint);background:var(--teal);color:#fff;box-shadow:0 0 12px rgba(34,183,175,.3)}.section.compact .choices{grid-template-columns:repeat(4,1fr)}.section.compact .choice{height:44px;padding:0 4px;font-size:11px}
+    .themes{display:flex;flex-wrap:wrap;gap:8px}.theme{min-height:44px;padding:0 14px;border:1px solid var(--line);border-radius:99px;background:#10242a;color:#bdd0d2;font-size:13px;font-weight:800}.theme.selected{border-color:var(--orange);color:#fff;background:#493126}
+    .bottom{position:absolute;z-index:4;left:0;right:0;bottom:0;padding:14px 20px 18px;border-top:1px solid rgba(255,255,255,.08);background:rgba(8,21,27,.96);box-shadow:0 -12px 25px rgba(0,0,0,.2)}.primary{width:100%;height:54px;border:0;border-radius:15px;background:var(--orange);color:#fff;font-size:17px;font-weight:900;box-shadow:0 8px 19px rgba(255,132,61,.22);cursor:pointer}
+  </style>
+</head>
+<body>
+<main class="phone" aria-label="개인정보 없는 모험가 회원가입">
+  <header><button class="back" type="button" onclick="history.back()" aria-label="뒤로">‹</button><h1>모험가 회원가입</h1><span class="step">ID ONLY</span></header>
+  <form id="profileForm">
+    <aside class="privacy" aria-label="개인정보 수집 안내"><i>🛡</i><span><strong>필수 가입 정보는 아이디 하나뿐</strong>비밀번호·이메일·전화번호 없이 이어가며, 복구 이메일은 MY에서 나중에 선택 등록해요.</span></aside>
+    <section class="section"><div class="label-row"><h2>탐험 스타일 선택</h2><span>1 / 4 선택됨</span></div><div class="avatars" data-single><button class="avatar selected" type="button"><i>💡</i>관찰가</button><button class="avatar" type="button"><i>🧭</i>길잡이</button><button class="avatar" type="button"><i>✨</i>발견가</button><button class="avatar" type="button"><i>☀</i>도전가</button></div></section>
+    <section class="section"><div class="label-row"><h2>모험가 아이디</h2><span>유일한 필수 항목</span></div><label class="input" id="idField"><span>☺</span><input id="adventureId" autocomplete="username" maxlength="20" aria-describedby="idHint idError" placeholder="예: 도자기대장" /></label><p class="hint" id="idHint"><b>실명·이메일·전화번호는 쓰지 마세요.</b> 아이디만 기억하면 진행도를 복원할 수 있어요.</p><p class="error-text" id="idError" aria-live="polite"></p></section>
+    <section class="section"><div class="label-row"><h2>아이 연령대</h2><span>추천 난이도에만 사용</span></div><div class="choices" data-single><button class="choice" type="button">만 3~5세</button><button class="choice selected" type="button">만 6~7세</button><button class="choice" type="button">만 8~10세</button><button class="choice" type="button">혼합 연령</button></div></section>
+    <section class="section compact"><div class="label-row"><h2>오늘 가능한 시간</h2><span>선택</span></div><div class="choices" data-single><button class="choice selected" type="button">2시간 내외</button><button class="choice" type="button">3시간 내외</button><button class="choice" type="button">4시간 이상</button><button class="choice" type="button">아직 모름</button></div></section>
+    <section class="section"><div class="label-row"><h2>관심 테마</h2><span>여러 개 선택</span></div><div class="themes" data-multi><button class="theme selected" type="button">🌲 자연</button><button class="theme selected" type="button">🏺 도자</button><button class="theme" type="button">🏯 역사</button><button class="theme" type="button">🦕 체험</button></div></section>
+  </form>
+  <div class="bottom"><button class="primary" id="startMap" type="button">아이디로 가입하고 시작하기 🚀</button></div>
+</main>
+<script>
+  document.querySelectorAll('[data-single]').forEach(group => group.addEventListener('click', event => { const button=event.target.closest('button'); if(!button)return; group.querySelectorAll('button').forEach(item=>item.classList.remove('selected')); button.classList.add('selected'); }));
+  document.querySelector('[data-multi]').addEventListener('click', event => { const button=event.target.closest('button'); if(button)button.classList.toggle('selected'); });
+  const idInput=document.querySelector('#adventureId');
+  const idField=document.querySelector('#idField');
+  const idError=document.querySelector('#idError');
+  const isEmail=value => /@/.test(value);
+  const isPhone=value => /(?:01[016789]|0\d{1,2})[-.\s]?\d{3,4}[-.\s]?\d{4}/.test(value) || /^\d{10,11}$/.test(value.replace(/\D/g,''));
+  function validateId(){
+    const value=idInput.value.trim();
+    let message='';
+    if(!value) message='사용할 모험가 아이디를 입력해 주세요.';
+    else if(isEmail(value) || isPhone(value)) message='개인정보 보호를 위해 이메일·전화번호 형식은 사용할 수 없어요.';
+    idField.classList.toggle('error',Boolean(message));
+    idError.textContent=message;
+    idInput.setAttribute('aria-invalid',message ? 'true' : 'false');
+    return !message;
+  }
+  idInput.addEventListener('input',validateId);
+  document.querySelector('#startMap').addEventListener('click', () => { if(!validateId()){idInput.focus();return;} location.href='01-home-hub.html'; });
+</script>
+</body>
+</html>
