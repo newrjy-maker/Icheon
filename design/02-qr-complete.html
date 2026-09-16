@@ -28,6 +28,9 @@
   </style>
 </head>
 <body>
+<script>
+  (()=>{const params=new URLSearchParams(location.search);let proof;try{proof=JSON.parse(sessionStorage.getItem('icheonQrProof')||'null')}catch{proof=null}const valid=proof&&params.get('proof')===proof.nonce&&params.get('spotId')===proof.spotId&&proof.map==='ceramic'&&Date.now()<proof.expiresAt;if(!valid){location.replace('02-qr-scanner.html?error=unverified');return;}window.__icheonQrProof=proof;})();
+</script>
 <main class="phone" id="completeApp" aria-label="QR 인증 성공 후 퍼즐 조각 획득 연출">
   <header class="hud"><div class="top"><div class="brand"><span class="mark">⌁</span>이천 모험지도</div><div class="chip" id="pieceChip">MY 퍼즐 · 2/3</div></div><div class="level"><div class="level-line"><span>동 · 도자 예술맵</span><span id="progressText">2 / 3</span></div><div class="bar"><i></i></div></div></header>
   <div class="world" aria-hidden="true"><svg viewBox="0 0 430 804"><g fill="none" stroke="#fff" stroke-width="3" stroke-dasharray="8 8"><polygon points="-20,130 54,87 128,130 128,216 54,259 -20,216"/><polygon points="302,90 376,47 450,90 450,176 376,219 302,176"/></g><path d="M76 265C153 199 237 206 342 270" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round" stroke-dasharray="3 15"/><g transform="translate(35 190)"><polygon points="0 70 70 30 140 70 70 110" fill="#5cc5b4"/><ellipse cx="70" cy="70" rx="39" ry="20" fill="#4ac4e2"/></g><g transform="translate(150 170)"><polygon points="0 80 75 37 150 80 75 123" fill="#74d3bd"/><path d="m43 77 33-21 32 21-32 19Z" fill="#ef7139"/><path d="M54 77v31m44-31v31" stroke="#6d4a38" stroke-width="6"/></g><g transform="translate(292 220)" opacity=".55"><polygon points="0 60 60 25 120 60 60 95" fill="#98a4a6"/><rect x="35" y="42" width="50" height="42" fill="#727f82"/></g></svg></div>

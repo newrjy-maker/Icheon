@@ -28,7 +28,7 @@
     <section class="quest"><div class="quest-head"><h2><i></i><span id="spotName">사기막골도예촌</span></h2><span>현장 퀘스트</span></div><div class="mission"><i>◉</i><div><small>미션 목표</small><p id="missionText">전통 가마 입구에 숨은 도자기 흙도장 문양 찾기</p></div></div></section>
     <section class="help"><i>?</i><p>인식이 잘 안 되거나 다른 장소인가요?<small>순서 확인 및 친절한 안내 가이드</small></p><button>안내 보기 ›</button></section>
   </div>
-  <div class="bottom"><button class="primary" id="scanButton" type="button">▣ 선택한 장소 QR 스캔</button></div>
+  <div class="bottom"><button class="primary" id="scanButton" type="button">▣ 카메라 켜고 QR 스캔</button></div>
 </main>
 <script>
   let completed;try{completed=new Set(JSON.parse(localStorage.getItem('icheonCeramicSpots')||'[]'))}catch{completed=new Set()}
@@ -38,6 +38,16 @@
   progressChip.textContent='☆ 도자 예술맵 '+completed.size+' / 3';
   select([...document.querySelectorAll('.spot-choice')].find(button=>!button.disabled));
   document.querySelector('#scanButton').addEventListener('click',()=>{location.href='02-qr-complete.html?spot='+encodeURIComponent(selected.name)+'&spotId='+encodeURIComponent(selected.id);});
+</script>
+<script>
+  const liveCamera=document.querySelector('.camera'),cameraPreview=document.createElement('video'),cameraNotice=document.createElement('div'),qrPayloads={yespark:'ICHEON-ADVENTURE:ceramic:yespark:V1',sagimak:'ICHEON-ADVENTURE:ceramic:sagimak:V1','ceramic-center':'ICHEON-ADVENTURE:ceramic:ceramic-center:V1'};let cameraStream,qrDetector,qrScanning=false;
+  document.head.insertAdjacentHTML('beforeend','<style>.camera video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#173d49}.camera.is-live .scene{display:none}.camera-state{position:absolute;z-index:5;left:50%;top:50%;width:84%;padding:12px;border-radius:14px;background:rgba(9,29,34,.82);color:#fff;text-align:center;font-size:13px;font-weight:900;line-height:1.45;transform:translate(-50%,-50%)}.camera-state b{display:block;margin-bottom:3px;color:#75ddd4}.camera.is-live .camera-state{display:none}.primary:disabled{background:#86989b;color:#edf3f2;box-shadow:none;cursor:not-allowed}</style>');cameraPreview.autoplay=true;cameraPreview.muted=true;cameraPreview.playsInline=true;cameraPreview.setAttribute('aria-label','QR 카메라 미리보기');cameraNotice.className='camera-state';liveCamera.prepend(cameraPreview);liveCamera.append(cameraNotice);
+  const showCameraNotice=(title,copy)=>cameraNotice.innerHTML='<b>'+title+'</b>'+copy;
+  const stopLiveCamera=()=>{qrScanning=false;if(cameraStream){cameraStream.getTracks().forEach(track=>track.stop());cameraStream=null;}cameraPreview.srcObject=null;liveCamera.classList.remove('is-live');};
+  const acceptQr=(rawValue)=>{const spotId=Object.keys(qrPayloads).find(id=>qrPayloads[id]===String(rawValue).trim());if(!spotId){showCameraNotice('이천 모험지도 QR이 아니에요','현장 안내판의 QR을 다시 맞춰주세요.');return;}if(completed.has(spotId)){showCameraNotice('이미 완료한 장소예요','아직 완료하지 않은 다른 장소의 QR을 스캔해주세요.');return;}select(document.querySelector('[data-id="'+spotId+'"]'));const proof={nonce:crypto.randomUUID?crypto.randomUUID():String(Date.now())+Math.random(),map:'ceramic',spotId,spotName:selected.name,expiresAt:Date.now()+60000};sessionStorage.setItem('icheonQrProof',JSON.stringify(proof));stopLiveCamera();location.href='02-qr-complete.html?spot='+encodeURIComponent(proof.spotName)+'&spotId='+encodeURIComponent(proof.spotId)+'&proof='+encodeURIComponent(proof.nonce);};
+  const detectQr=async()=>{if(!qrScanning)return;try{const codes=await qrDetector.detect(cameraPreview);if(codes[0]?.rawValue){acceptQr(codes[0].rawValue);return;}}catch{}if(qrScanning)requestAnimationFrame(detectQr);};
+  const startLiveCamera=async()=>{if(cameraStream)return;if(!navigator.mediaDevices?.getUserMedia){showCameraNotice('이 기기에서는 카메라를 사용할 수 없어요','HTTPS로 접속한 최신 Chrome 또는 Safari에서 다시 시도해주세요.');return;}if(!('BarcodeDetector' in window)){showCameraNotice('QR 인식을 지원하지 않는 브라우저예요','최신 Android Chrome에서 다시 열어주세요. 인증 완료는 허용되지 않습니다.');return;}scanButton.disabled=true;scanButton.textContent='카메라 권한 요청 중…';try{cameraStream=await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'},width:{ideal:1280},height:{ideal:720}},audio:false});cameraPreview.srcObject=cameraStream;await cameraPreview.play();qrDetector=new BarcodeDetector({formats:['qr_code']});qrScanning=true;liveCamera.classList.add('is-live');scanButton.textContent='⌁ 카메라로 QR 인식 중…';requestAnimationFrame(detectQr);}catch(error){const denied=error?.name==='NotAllowedError';showCameraNotice(denied?'카메라 권한이 필요해요':'카메라를 시작하지 못했어요',denied?'브라우저 주소창의 카메라 권한을 허용한 뒤 다시 시도해주세요.':'다른 앱에서 카메라를 사용 중인지 확인하고 다시 시도해주세요.');scanButton.disabled=false;scanButton.textContent='▣ 카메라 권한 다시 요청';}};
+  showCameraNotice('카메라를 켜야 인증할 수 있어요','아래 버튼을 누르면 카메라 권한을 요청합니다.');scanButton.addEventListener('click',event=>{event.preventDefault();event.stopImmediatePropagation();startLiveCamera();},true);window.addEventListener('pagehide',stopLiveCamera);
 </script>
 </body>
 </html>
