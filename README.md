@@ -22,6 +22,10 @@ node design/preview-server.cjs
 
 - 전체 시안: <http://127.0.0.1:8000/design/drafts.html>
 - 호법JC 4방 메인 허브: <http://127.0.0.1:8000/design/01-home-hub.html>
+- 예스파크 스팟 상세: <http://127.0.0.1:8000/design/03-spot-detail.html>
+  - 정상 운영: <http://127.0.0.1:8000/design/03-spot-detail.html?state=open>
+  - 오늘 휴무: <http://127.0.0.1:8000/design/03-spot-detail.html?state=closed>
+  - 검수 필요: <http://127.0.0.1:8000/design/03-spot-detail.html?state=review>
 
 ## 주요 문서
 
@@ -35,8 +39,9 @@ node design/preview-server.cjs
 2. 퍼즐 조각 맛보기
 3. 개인정보 없는 모험가 회원가입
 4. 호법JC 4방 메인 허브
-5. 현장 QR 인증 및 보상
-6. 지도 완성·비밀맵 해금
-7. MY 지도 이어하기
+5. 방문 스팟 상세 및 검수 상태
+6. 현장 QR 인증 및 보상
+7. 지도 완성·비밀맵 해금
+8. MY 지도 이어하기
 
 공개명은 **이천 모험지도**이며 기존 만화·게임 IP를 사용하지 않는 오리지널 디자인입니다.
