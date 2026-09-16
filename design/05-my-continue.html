@@ -11,22 +11,50 @@
     .scroll{height:calc(100% - 66px);overflow-y:auto;padding:15px 16px 34px;scrollbar-width:none}.scroll::-webkit-scrollbar{display:none}.summary{padding:16px;border-radius:22px;background:linear-gradient(130deg,#087a73,#20aaa2);color:#fff;box-shadow:0 10px 24px rgba(8,122,115,.2)}.summary-top{display:flex;align-items:center;justify-content:space-between}.summary h1{margin:0;font-size:21px}.summary p{margin:3px 0 0;color:#d9fffa;font-size:13px;font-weight:700}.total{display:grid;place-items:center;width:64px;height:64px;border:5px solid rgba(255,255,255,.35);border-top-color:#ffd13a;border-radius:50%;font-size:16px;font-weight:900}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:13px}.stat{padding:8px;border-radius:12px;background:rgba(255,255,255,.13);text-align:center;font-size:11px;font-weight:800}.stat b{display:block;margin-bottom:2px;font-size:17px}
     .section-title{display:flex;align-items:center;justify-content:space-between;margin:19px 2px 9px}.section-title h2{margin:0;font-size:18px}.section-title span{color:#74868a;font-size:11px;font-weight:800}.resume{position:relative;overflow:hidden;padding:15px;border:2px solid #f0a140;border-radius:19px;background:#fff;box-shadow:0 7px 18px rgba(36,66,70,.08)}.resume::after{content:"이어하기";position:absolute;right:-26px;top:17px;width:104px;padding:5px 0;background:var(--orange);color:#fff;text-align:center;font-size:10px;font-weight:900;transform:rotate(42deg)}.resume-head{display:flex;align-items:center;gap:10px}.map-icon{display:grid;place-items:center;width:49px;height:49px;border-radius:15px;background:#dcf6f2;font-size:25px}.resume h3{margin:0;font-size:17px}.resume small{color:#75878b;font-weight:700}.bar{height:10px;margin:12px 0 7px;border-radius:99px;background:#e2e9e8;overflow:hidden}.bar i{display:block;width:66.66%;height:100%;border-radius:inherit;background:linear-gradient(90deg,#ffae1b,#ffd63b)}.progress-line{display:flex;justify-content:space-between;font-size:12px;font-weight:900}.progress-line b{color:#a65300}.resume a{display:flex;align-items:center;justify-content:center;height:50px;margin-top:12px;border-radius:14px;background:var(--orange);color:#fff;text-decoration:none;font-size:15px;font-weight:900}
     .history{border:1px solid var(--line);border-radius:18px;background:#fff;overflow:hidden}.row{display:grid;grid-template-columns:50px 1fr auto;align-items:center;gap:9px;min-height:61px;padding:8px 12px}.row+.row{border-top:1px solid #edf0ef}.date{color:#718489;font-size:11px;font-weight:900;text-align:center}.date b{display:block;color:#334f56;font-size:15px}.row h3{margin:0;font-size:14px}.row p{margin:2px 0 0;color:#7b8b8f;font-size:11px;font-weight:700}.state{display:flex;align-items:center;gap:4px;padding:5px 7px;border-radius:99px;font-size:11px;font-weight:900}.state.done{background:#e0f6f1;color:#087069}.state.active{background:#fff0c4;color:#895800}.state.locked{background:#edf0f0;color:#677579}
-    .account{padding:15px;border:1px solid var(--line);border-radius:18px;background:#fff}.account-head{display:flex;align-items:center;justify-content:space-between}.account h3{margin:0;font-size:16px}.current{color:#08736d;font-size:12px;font-weight:900}.field{display:flex;gap:7px;margin-top:11px}.field input{min-width:0;flex:1;height:49px;padding:0 12px;border:2px solid #cbdedc;border-radius:13px;outline:0;color:var(--ink);font-size:15px;font-weight:800}.field input:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(8,122,115,.1)}.field button{flex:0 0 76px;border:0;border-radius:13px;background:var(--teal);color:#fff;font-size:13px;font-weight:900}.warning{display:flex;gap:7px;margin-top:9px;padding:9px 10px;border:1px solid #ffc195;border-radius:11px;background:#fff4eb;color:#95450d;font-size:11px;font-weight:800;line-height:1.4}.warning.error{border-color:#e54c3c;background:#fff0ef;color:#a72d24}.risk{margin:8px 1px 0;color:#75878b;font-size:10px;font-weight:700;line-height:1.4}.message{min-height:18px;margin:7px 2px 0;color:#08736d;font-size:11px;font-weight:900}
+    .account-link{display:flex;align-items:center;gap:12px;min-height:72px;padding:12px 14px;border:1px solid #b8dfda;border-radius:18px;background:#fff;color:inherit;text-decoration:none;box-shadow:0 6px 14px rgba(36,66,70,.06)}.account-link i{display:grid;place-items:center;width:44px;height:44px;border-radius:14px;background:#dcf6f2;color:#087a73;font-style:normal;font-size:22px}.account-link strong{display:block;font-size:16px}.account-link small{display:block;margin-top:3px;color:#718489;font-size:11px;font-weight:800}.account-link span:last-child{margin-left:auto;color:#087a73;font-size:20px;font-weight:900}
   </style>
 </head>
 <body>
 <main class="phone" aria-label="MY 지도와 날짜별 이어하기">
   <header><button class="back" onclick="history.back()" aria-label="뒤로">‹</button><div class="title">MY 지도</div><span class="id-chip">☺ 도자기대장</span></header>
-  <div class="scroll"><section class="summary"><div class="summary-top"><div><h1>우리 가족의 이천 탐험</h1><p>아이디 하나로 모든 기기에서 이어집니다</p></div><div class="total">56%</div></div><div class="stats"><div class="stat"><b>5</b>획득 조각</div><div class="stat"><b>1</b>완성 지도</div><div class="stat"><b>1</b>해금 지도</div></div></section>
-    <div class="section-title"><h2>지금 이어하기</h2><span>마지막 기록 자동 복원</span></div><section class="resume"><div class="resume-head"><div class="map-icon">🏺</div><div><h3>동 · 도자 예술맵</h3><small>오늘 · 사기막골도예촌 QR 완료 후</small></div></div><div class="bar"><i></i></div><div class="progress-line"><span>예스파크 ✓ → 사기막골 ✓ → 세계도자센터 ③</span><b>2/3</b></div><a href="01-home-hub.html">도자 예술맵 2/3에서 이어하기</a></section>
-    <div class="section-title"><h2>날짜별 이어보기</h2><span>완료·진행 기록</span></div><section class="history"><article class="row"><div class="date"><b>오늘</b>9.14</div><div><h3>동 · 도자 예술맵</h3><p>사기막골까지 완료 · 다음 세계도자센터</p></div><span class="state active">↻ 2/3</span></article><article class="row"><div class="date"><b>일</b>9.07</div><div><h3>북 · 서희 역사맵</h3><p>세 장소 완료 · 금테 지도 복원</p></div><span class="state done">✓ 3/3</span></article></section>
-    <div class="section-title" id="account"><h2>아이디 로그인·계정</h2><span>직접 식별정보 없음</span></div><section class="account"><div class="account-head"><h3>다른 기기에서 이어하기</h3><span class="current">현재: 도자기대장</span></div><div class="field"><input id="loginId" placeholder="서비스 전용 아이디" aria-label="서비스 전용 아이디"/><button id="loginButton">복원</button></div><div class="warning" id="formatWarning"><span>!</span><span><b>이메일·전화번호 형식은 아이디로 사용할 수 없어요.</b><br/>이름 대신 기억하기 쉬운 별칭을 만들어 주세요.</span></div><p class="risk">아이디를 아는 사람은 진행 기록에 접근할 수 있습니다. 선택 이메일은 새 기기 복구에만 사용합니다.</p><div class="message" id="message" aria-live="polite"></div></section>
+  <div class="scroll"><section class="summary"><div class="summary-top"><div><h1>우리 가족의 이천 탐험</h1><p>아이디 하나로 모든 기기에서 이어집니다</p></div><div class="total" id="totalRate">56%</div></div><div class="stats"><div class="stat"><b id="pieceCount">5</b>획득 조각</div><div class="stat"><b id="mapCount">1</b>완성 지도</div><div class="stat"><b id="unlockCount">1</b>해금 지도</div></div></section>
+    <div class="section-title"><h2>지금 이어하기</h2><span>마지막 기록 자동 복원</span></div><section class="resume" id="resumeCard"><div class="resume-head"><div class="map-icon" id="resumeIcon">🏺</div><div><h3 id="resumeTitle">동 · 도자 예술맵</h3><small id="resumeCopy">오늘 · 사기막골도예촌 QR 완료 후</small></div></div><div class="bar"><i id="resumeBar"></i></div><div class="progress-line"><span id="resumeRoute">예스파크 ✓ → 사기막골 ✓ → 세계도자센터 ③</span><b id="resumeProgress">2/3</b></div><a id="resumeLink" href="01-home-hub.html">도자 예술맵 2/3에서 이어하기</a></section>
+    <div class="section-title"><h2>날짜별 이어보기</h2><span>완료·진행 기록</span></div><section class="history"><article class="row"><div class="date"><b>오늘</b>9.14</div><div><h3 id="todayTitle">동 · 도자 예술맵</h3><p id="todayCopy">사기막골까지 완료 · 다음 세계도자센터</p></div><span class="state active" id="todayState">↻ 2/3</span></article><article class="row"><div class="date"><b>일</b>9.07</div><div><h3>북 · 서희 역사맵</h3><p>세 장소 완료 · 금테 지도 복원</p></div><span class="state done">✓ 3/3</span></article></section>
+    <div class="section-title"><h2>아이디 로그인·계정</h2><span>별도 페이지</span></div><a class="account-link" href="06-account.html"><i>☺</i><span><strong>아이디 로그인·계정 관리</strong><small>다른 기기 복원, 복구 이메일, 로그아웃과 삭제</small></span><span>›</span></a>
   </div>
 </main>
 <script>
-  const input=document.querySelector('#loginId'); const warning=document.querySelector('#formatWarning'); const message=document.querySelector('#message');
-  const invalid=value => /@/.test(value) || /\d{2,4}[-. ]?\d{3,4}[-. ]?\d{4}/.test(value);
-  document.querySelector('#loginButton').addEventListener('click',()=>{const value=input.value.trim(); if(!value){message.textContent='아이디를 입력해 주세요.';input.focus();return;} if(invalid(value)){warning.classList.add('error');message.textContent='개인정보 형식이 감지되어 차단했습니다.';input.focus();return;} warning.classList.remove('error');message.textContent=`“${value}” 진행 기록을 불러오는 시안입니다.`;});
+  let ceramicCount;try{ceramicCount=[...new Set(JSON.parse(localStorage.getItem('icheonCeramicSpots')||'[]'))].length}catch{ceramicCount=0}
+  const secretUnlocked=localStorage.getItem('icheonSecretUnlocked')==='true';
+  if(!secretUnlocked){
+    document.querySelector('#totalRate').textContent=ceramicCount?'12%':'0%';
+    document.querySelector('#pieceCount').textContent=String(ceramicCount);
+    document.querySelector('#mapCount').textContent='0';
+    document.querySelector('#unlockCount').textContent='0';
+    document.querySelector('#resumeCopy').textContent=ceramicCount?'오늘 · 다음 장소 QR을 찾아보세요':'첫 장소의 QR을 찾아 모험을 시작하세요';
+    document.querySelector('#resumeBar').style.width=(ceramicCount/3*100)+'%';
+    document.querySelector('#resumeRoute').textContent=ceramicCount?'도자 예술맵에서 남은 장소를 이어서 탐험하세요':'예스파크 → 사기막골도예촌 → 세계도자센터';
+    document.querySelector('#resumeProgress').textContent=ceramicCount+'/3';
+    const link=document.querySelector('#resumeLink');link.href='02-qr-scanner.html';link.textContent=ceramicCount?'도자 예술맵 '+ceramicCount+'/3에서 이어하기':'도자 예술맵 0/3 시작하기';
+    document.querySelector('#todayCopy').textContent=ceramicCount?'현재 '+ceramicCount+'/3 완료 · 다음 QR을 찾아보세요':'아직 방문 기록이 없어요 · 첫 QR을 찾아보세요';
+    document.querySelector('#todayState').textContent=ceramicCount?'↻ '+ceramicCount+'/3':'○ 시작 전';
+  }
+  if(secretUnlocked){
+    document.querySelector('#totalRate').textContent='67%';
+    document.querySelector('#pieceCount').textContent='6';
+    document.querySelector('#mapCount').textContent='2';
+    document.querySelector('#unlockCount').textContent='2';
+    document.querySelector('#resumeIcon').textContent='🦕';
+    document.querySelector('#resumeTitle').textContent='서 · 공룡 탐험 비밀맵';
+    document.querySelector('#resumeCopy').textContent='도자 예술맵 완성 · 새 비밀맵이 열렸어요';
+    document.querySelector('#resumeBar').style.width='0%';
+    document.querySelector('#resumeRoute').textContent='첫 장소를 방문해 비밀맵 조각을 모아보세요';
+    document.querySelector('#resumeProgress').textContent='0/3';
+    const link=document.querySelector('#resumeLink');link.href='01-home-hub.html?unlocked=1';link.textContent='공룡 탐험 비밀맵 0/3 시작하기';
+    document.querySelector('#todayTitle').textContent='동 · 도자 예술맵';
+    document.querySelector('#todayCopy').textContent='세 장소 완료 · 도자기 복원 · 비밀맵 해금';
+    const todayState=document.querySelector('#todayState');todayState.className='state done';todayState.textContent='✓ 3/3';
+  }
 </script>
 </body>
 </html>
