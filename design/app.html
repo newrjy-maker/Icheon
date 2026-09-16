@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>이천 모험지도 · 통합 체험</title>
+  <style>
+    :root{--night:#071720;--panel:#10282f;--line:#28464d;--mint:#73e0d7;--teal:#159e98;--orange:#ff843d;--white:#f7ffff;--muted:#9eb3b6}
+    *{box-sizing:border-box}
+    html,body{margin:0;min-height:100%;background:#0b1b21;font-family:Pretendard,"Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif}
+    button{font:inherit}
+    body{display:grid;place-items:center}
+    .app{position:relative;width:min(100%,430px);height:100svh;min-height:640px;overflow:hidden;background:#102026;box-shadow:0 0 48px rgba(0,0,0,.35)}
+    .flow{position:absolute;z-index:10;inset:0 0 auto;height:86px;padding:7px 9px 8px;border-bottom:1px solid rgba(255,255,255,.11);background:rgba(7,23,32,.97);color:var(--white);backdrop-filter:blur(14px)}
+    .flow-head{display:flex;align-items:center;justify-content:space-between;height:24px;padding:0 4px}
+    .flow-title{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:900}
+    .flow-title i{width:7px;height:7px;border-radius:50%;background:var(--orange);box-shadow:0 0 9px rgba(255,132,61,.6)}
+    .reset{min-width:48px;min-height:24px;border:0;background:transparent;color:var(--mint);font-size:11px;font-weight:900;cursor:pointer}
+    .steps{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin-top:4px}
+    .step{position:relative;min-height:46px;padding:4px 1px;border:1px solid transparent;border-radius:12px;background:transparent;color:#81969a;cursor:pointer}
+    .step span{display:grid;place-items:center;width:21px;height:21px;margin:0 auto 2px;border:1px solid #496067;border-radius:50%;font-size:10px;font-weight:900}
+    .step small{display:block;font-size:9px;font-weight:900;white-space:nowrap}
+    .step.done{color:#b7cecf}.step.done span{border-color:#4cbeb6;background:#164d4d;color:#bdfbf6}
+    .step.current{border-color:rgba(115,224,215,.42);background:#15363c;color:#fff}
+    .step.current span{border-color:var(--mint);background:var(--teal);color:#fff;box-shadow:0 0 10px rgba(115,224,215,.35)}
+    .step:disabled{cursor:not-allowed;opacity:.42}.step:disabled span{border-style:dashed}.step:disabled small::after{content:" 🔒";font-size:8px}
+    .viewer{position:absolute;inset:86px 0 0;background:#102026}
+    iframe{display:block;width:100%;height:100%;border:0;background:#102026}
+    .loading{position:absolute;inset:0;display:grid;place-items:center;background:#102026;color:var(--mint);font-size:13px;font-weight:900;transition:opacity .18s}
+    .loading.hide{opacity:0;pointer-events:none}
+    .loading span{display:flex;align-items:center;gap:9px}
+    .loading i{width:15px;height:15px;border:2px solid rgba(115,224,215,.25);border-top-color:var(--mint);border-radius:50%;animation:spin .7s linear infinite}
+    .product-footer{position:absolute;z-index:20;right:8px;bottom:4px;margin:0;color:rgba(255,255,255,.74);font-size:9px;font-weight:900;letter-spacing:.05em;text-shadow:0 1px 2px rgba(0,0,0,.45);pointer-events:none}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    @media(max-width:500px){body{display:block}.app{width:100%;box-shadow:none}}
+    @media(max-height:720px){.flow{height:76px;padding-top:4px}.flow-head{height:20px}.step{min-height:42px}.viewer{inset:76px 0 0}}
+  </style>
+</head>
+<body>
+<main class="app" aria-label="이천 모험지도 통합 체험">
+  <header class="flow">
+    <div class="flow-head">
+      <div class="flow-title"><i></i><span id="currentTitle">1. 인트로</span></div>
+      <button class="reset" id="resetFlow" type="button">처음으로</button>
+    </div>
+    <nav class="steps" aria-label="체험 단계">
+      <button class="step current" type="button" data-step="intro"><span>1</span><small>인트로</small></button>
+      <button class="step" type="button" data-step="signup"><span>2</span><small>회원가입</small></button>
+      <button class="step" type="button" data-step="map"><span>3</span><small>모험지도</small></button>
+      <button class="step" type="button" data-step="qr"><span>4</span><small>QR 인증</small></button>
+      <button class="step" type="button" data-step="journey"><span>5</span><small>전체 여정</small></button>
+    </nav>
+  </header>
+  <section class="viewer">
+    <iframe id="screen" src="00-intro.html" title="이천 모험지도 현재 화면"></iframe>
+    <div class="loading" id="loading" aria-live="polite"><span><i></i>화면을 준비하고 있어요</span></div>
+  </section>
+  <footer class="product-footer" aria-label="제품 버전">이천 모험지도 · v1.0.0</footer>
+</main>
+<script>
+  const flow = {
+    intro: { title: '1. 인트로', screen: '00-intro.html' },
+    signup: { title: '2. 회원가입', screen: '00-profile.html' },
+    map: { title: '3. 이천 모험지도', screen: '01-home-hub.html' },
+    qr: { title: '4. 현장 QR 인증', screen: '02-qr-scanner.html' },
+    journey: { title: '5. 전체 여정', screen: '05-my-continue.html' }
+  };
+  const fileStep = {
+    '00-intro.html': 'intro',
+    '00-break.html': 'intro',
+    '00-profile.html': 'signup',
+    '01-home-hub.html': 'map',
+    '03-spot-detail.html': 'map',
+    '04-map-unlock.html': 'map',
+    '02-qr-scanner.html': 'qr',
+    '02-qr-complete.html': 'qr',
+    '05-my-continue.html': 'journey',
+    '06-account.html': 'journey'
+  };
+  const order = ['intro','signup','map','qr','journey'];
+  const frame = document.querySelector('#screen');
+  const loading = document.querySelector('#loading');
+  const currentTitle = document.querySelector('#currentTitle');
+  const buttons = [...document.querySelectorAll('[data-step]')];
+  let currentStep = 'intro';
+  const protectedSteps = new Set(['map','qr','journey']);
+
+  function isRegistered(){
+    try{return Boolean(localStorage.getItem('icheonAdventureProfile'))}catch(error){return false}
+  }
+  function canOpen(step){return !protectedSteps.has(step)||isRegistered()}
+  function syncAccess(){
+    buttons.forEach(button=>{
+      const locked=protectedSteps.has(button.dataset.step)&&!isRegistered();
+      button.disabled=locked;
+      button.title=locked?'회원가입 후 이용할 수 있어요':'';
+    });
+  }
+
+  function showStep(step){
+    currentStep = flow[step] ? step : 'intro';
+    currentTitle.textContent = flow[currentStep].title;
+    const currentIndex = order.indexOf(currentStep);
+    buttons.forEach((button,index)=>{
+      const active = button.dataset.step === currentStep;
+      button.classList.toggle('current',active);
+      button.classList.toggle('done',index < currentIndex);
+      if(active) button.setAttribute('aria-current','step'); else button.removeAttribute('aria-current');
+    });
+  }
+
+  function go(step,addHistory){
+    const requested = flow[step] ? step : 'intro';
+    const next = canOpen(requested) ? requested : 'signup';
+    showStep(next);
+    syncAccess();
+    loading.classList.remove('hide');
+    frame.src = flow[next].screen;
+    const nextUrl = location.pathname + '#' + next;
+    if(addHistory) history.pushState({step:next},'',nextUrl);
+    else history.replaceState({step:next},'',nextUrl);
+  }
+
+  buttons.forEach(button=>button.addEventListener('click',()=>go(button.dataset.step,true)));
+  document.querySelector('#resetFlow').addEventListener('click',()=>go('intro',true));
+  window.addEventListener('message',event=>{
+    if(event.origin===location.origin&&event.data?.type==='icheon-profile-complete')syncAccess();
+  });
+
+  frame.addEventListener('load',()=>{
+    loading.classList.add('hide');
+    try{
+      const file = new URL(frame.contentWindow.location.href).pathname.split('/').pop();
+      const detected = fileStep[file];
+      if(detected){
+        if(!canOpen(detected)){go('signup',false);return;}
+        showStep(detected);
+        syncAccess();
+        history.replaceState({step:detected},'',location.pathname + '#' + detected);
+      }
+    }catch(error){
+      showStep(currentStep);
+    }
+  });
+
+  window.addEventListener('popstate',event=>{
+    const step = event.state && flow[event.state.step] ? event.state.step : location.hash.slice(1);
+    go(flow[step] ? step : 'intro',false);
+  });
+
+  syncAccess();
+  const initial = location.hash.slice(1);
+  if(flow[initial]) go(initial,false); else showStep('intro');
+</script>
+</body>
+</html>

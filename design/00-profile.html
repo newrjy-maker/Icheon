@@ -25,7 +25,7 @@
     <aside class="privacy" aria-label="개인정보 수집 안내"><i>🛡</i><span><strong>필수 가입 정보는 아이디 하나뿐</strong>비밀번호·이메일·전화번호 없이 이어가며, 복구 이메일은 MY에서 나중에 선택 등록해요.</span></aside>
     <section class="section"><div class="label-row"><h2>탐험 스타일 선택</h2><span>1 / 4 선택됨</span></div><div class="avatars" data-single><button class="avatar selected" type="button"><i>💡</i>관찰가</button><button class="avatar" type="button"><i>🧭</i>길잡이</button><button class="avatar" type="button"><i>✨</i>발견가</button><button class="avatar" type="button"><i>☀</i>도전가</button></div></section>
     <section class="section"><div class="label-row"><h2>모험가 아이디</h2><span>유일한 필수 항목</span></div><label class="input" id="idField"><span>☺</span><input id="adventureId" autocomplete="username" maxlength="20" aria-describedby="idHint idError" placeholder="예: 도자기대장" /></label><p class="hint" id="idHint"><b>실명·이메일·전화번호는 쓰지 마세요.</b> 아이디만 기억하면 진행도를 복원할 수 있어요.</p><p class="error-text" id="idError" aria-live="polite"></p></section>
-    <section class="section"><div class="label-row"><h2>아이 연령대</h2><span>추천 난이도에만 사용</span></div><div class="choices" data-single><button class="choice" type="button">만 3~5세</button><button class="choice selected" type="button">만 6~7세</button><button class="choice" type="button">만 8~10세</button><button class="choice" type="button">혼합 연령</button></div></section>
+    <section class="section"><div class="label-row"><h2>연령대</h2><span>추천 난이도에만 사용</span></div><div class="choices" data-single><button class="choice" type="button">10대</button><button class="choice selected" type="button">20대</button><button class="choice" type="button">30대</button><button class="choice" type="button">40대</button><button class="choice" type="button">50대</button><button class="choice" type="button">60대 이상</button></div></section>
     <section class="section compact"><div class="label-row"><h2>오늘 가능한 시간</h2><span>선택</span></div><div class="choices" data-single><button class="choice selected" type="button">2시간 내외</button><button class="choice" type="button">3시간 내외</button><button class="choice" type="button">4시간 이상</button><button class="choice" type="button">아직 모름</button></div></section>
     <section class="section"><div class="label-row"><h2>관심 테마</h2><span>여러 개 선택</span></div><div class="themes" data-multi><button class="theme selected" type="button">🌲 자연</button><button class="theme selected" type="button">🏺 도자</button><button class="theme" type="button">🏯 역사</button><button class="theme" type="button">🦕 체험</button></div></section>
   </form>
@@ -50,7 +50,7 @@
     return !message;
   }
   idInput.addEventListener('input',validateId);
-  document.querySelector('#startMap').addEventListener('click', () => { if(!validateId()){idInput.focus();return;} location.href='01-home-hub.html'; });
+  document.querySelector('#startMap').addEventListener('click', () => { if(!validateId()){idInput.focus();return;} localStorage.setItem('icheonAdventureProfile',JSON.stringify({id:idInput.value.trim(),createdAt:Date.now()}));window.parent.postMessage({type:'icheon-profile-complete'},location.origin);location.href='01-home-hub.html'; });
 </script>
 </body>
 </html>

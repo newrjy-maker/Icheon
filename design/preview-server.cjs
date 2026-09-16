@@ -13,7 +13,7 @@ const mime = {
 
 http.createServer((request, response) => {
   const requestPath = decodeURIComponent(new URL(request.url, 'http://localhost').pathname);
-  const relativePath = requestPath === '/' ? 'design/00-intro.html' : requestPath.replace(/^\/+/, '');
+  const relativePath = requestPath === '/' ? 'design/app.html' : requestPath.replace(/^\/+/, '');
   const filePath = path.resolve(root, relativePath);
 
   if (!filePath.startsWith(root + path.sep)) {
