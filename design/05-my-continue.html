@@ -18,8 +18,8 @@
 <main class="phone" aria-label="MY 지도와 날짜별 이어하기">
   <header><button class="back" onclick="history.back()" aria-label="뒤로">‹</button><div class="title">MY 지도</div><span class="id-chip">☺ 도자기대장</span></header>
   <div class="scroll"><section class="summary"><div class="summary-top"><div><h1>우리 가족의 이천 탐험</h1><p>아이디 하나로 모든 기기에서 이어집니다</p></div><div class="total" id="totalRate">56%</div></div><div class="stats"><div class="stat"><b id="pieceCount">5</b>획득 조각</div><div class="stat"><b id="mapCount">1</b>완성 지도</div><div class="stat"><b id="unlockCount">1</b>해금 지도</div></div></section>
-    <div class="section-title"><h2>지금 이어하기</h2><span>마지막 기록 자동 복원</span></div><section class="resume" id="resumeCard"><div class="resume-head"><div class="map-icon" id="resumeIcon">🏺</div><div><h3 id="resumeTitle">동 · 도자 예술맵</h3><small id="resumeCopy">오늘 · 사기막골도예촌 QR 완료 후</small></div></div><div class="bar"><i id="resumeBar"></i></div><div class="progress-line"><span id="resumeRoute">예스파크 ✓ → 사기막골 ✓ → 세계도자센터 ③</span><b id="resumeProgress">2/3</b></div><a id="resumeLink" href="01-home-hub.html">도자 예술맵 2/3에서 이어하기</a></section>
-    <div class="section-title"><h2>날짜별 이어보기</h2><span>완료·진행 기록</span></div><section class="history"><article class="row"><div class="date"><b>오늘</b>9.14</div><div><h3 id="todayTitle">동 · 도자 예술맵</h3><p id="todayCopy">사기막골까지 완료 · 다음 세계도자센터</p></div><span class="state active" id="todayState">↻ 2/3</span></article><article class="row"><div class="date"><b>일</b>9.07</div><div><h3>북 · 서희 역사맵</h3><p>세 장소 완료 · 금테 지도 복원</p></div><span class="state done">✓ 3/3</span></article></section>
+    <div class="section-title"><h2>지금 이어하기</h2><span>마지막 기록 자동 복원</span></div><section class="resume" id="resumeCard"><div class="resume-head"><div class="map-icon" id="resumeIcon">🏺</div><div><h3 id="resumeTitle">동 · 도자 예술맵</h3><small id="resumeCopy">오늘 · 사기막골도예촌 QR 완료 후</small></div></div><div class="bar"><i id="resumeBar"></i></div><div class="progress-line"><span id="resumeRoute">예스파크 ✓ → 사기막골 ✓ → 월전미술관 ③</span><b id="resumeProgress">2/3</b></div><a id="resumeLink" href="01-home-hub.html">도자 예술맵 2/3에서 이어하기</a></section>
+    <div class="section-title"><h2>날짜별 이어보기</h2><span>완료·진행 기록</span></div><section class="history"><article class="row"><div class="date"><b>오늘</b>9.14</div><div><h3 id="todayTitle">동 · 도자 예술맵</h3><p id="todayCopy">사기막골까지 완료 · 다음 월전미술관</p></div><span class="state active" id="todayState">↻ 2/3</span></article><article class="row"><div class="date"><b>일</b>9.07</div><div><h3>북 · 서희 역사맵</h3><p>세 장소 완료 · 금테 지도 복원</p></div><span class="state done">✓ 3/3</span></article></section>
     <div class="section-title"><h2>아이디 로그인·계정</h2><span>별도 페이지</span></div><a class="account-link" href="06-account.html"><i>☺</i><span><strong>아이디 로그인·계정 관리</strong><small>다른 기기 복원, 복구 이메일, 로그아웃과 삭제</small></span><span>›</span></a>
   </div>
 </main>
@@ -33,7 +33,7 @@
     document.querySelector('#unlockCount').textContent='0';
     document.querySelector('#resumeCopy').textContent=ceramicCount?'오늘 · 다음 장소 QR을 찾아보세요':'첫 장소의 QR을 찾아 모험을 시작하세요';
     document.querySelector('#resumeBar').style.width=(ceramicCount/3*100)+'%';
-    document.querySelector('#resumeRoute').textContent=ceramicCount?'도자 예술맵에서 남은 장소를 이어서 탐험하세요':'예스파크 → 사기막골도예촌 → 세계도자센터';
+    document.querySelector('#resumeRoute').textContent=ceramicCount?'도자 예술맵에서 남은 장소를 이어서 탐험하세요':'예스파크 → 사기막골도예촌 → 월전미술관';
     document.querySelector('#resumeProgress').textContent=ceramicCount+'/3';
     const link=document.querySelector('#resumeLink');link.href='02-qr-scanner.html';link.textContent=ceramicCount?'도자 예술맵 '+ceramicCount+'/3에서 이어하기':'도자 예술맵 0/3 시작하기';
     document.querySelector('#todayCopy').textContent=ceramicCount?'현재 '+ceramicCount+'/3 완료 · 다음 QR을 찾아보세요':'아직 방문 기록이 없어요 · 첫 QR을 찾아보세요';
