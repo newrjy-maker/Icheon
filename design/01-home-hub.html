@@ -95,5 +95,30 @@
   applyFirstVisitState();
   if(localStorage.getItem('icheonSecretUnlocked')==='true'||ceramicCount()===3){localStorage.setItem('icheonSecretUnlocked','true');unlockSecretMap();selectMap('west');}
 </script>
+<script>
+  (()=>{try{if(window.top===window&&!localStorage.getItem('icheonAdventureProfile'))location.replace('app.html#signup')}catch(error){location.replace('app.html#signup')}})();
+</script>
+<script>
+(()=>{
+  const order=[['yespark','예스파크'],['sagimak','사기막골도예촌'],['woljeon-museum','월전미술관']];
+  let done=[];try{done=[...new Set(JSON.parse(localStorage.getItem('icheonCeramicSpots')||'[]'))]}catch(error){}
+  const next=order.find(([id])=>!done.includes(id));
+  const eastCard=document.querySelector('[data-card="east"]');
+  document.querySelector('.sample-note')?.remove();
+  if(next){
+    const [,name]=next;
+    document.querySelector('#infoDirection').textContent='동쪽 · 현재 퀘스트';
+    document.querySelector('#infoState').textContent='▶ '+(done.length+1)+' / 3';
+    document.querySelector('#infoSummary').textContent='다음: '+name+' QR 인증 · 주차·휴식 정보 확인';
+    document.querySelector('.instruction').textContent='◆ 지금 할 일: '+name+'로 이동해 QR을 찾아보세요';
+    const cta=eastCard.querySelector('.cta');cta.textContent='현재 퀘스트: '+name+' 정보·길찾기';cta.onclick=()=>location.href='03-spot-detail.html';
+    document.querySelector('.action.primary span').textContent='현재 퀘스트 QR';
+  }
+  if(!eastCard.querySelector('.family-brief')){
+    eastCard.querySelector('.meta').insertAdjacentHTML('afterend','<p class="family-brief">👨‍👩‍👧 유모차 가능 · 🅿 현장 주차 안내 확인 · 🚻 휴식은 출발 전 확인</p>');
+    document.head.insertAdjacentHTML('beforeend','<style>.family-brief{margin:8px 0 0;padding:7px 8px;border-radius:9px;background:#f0f8f6;color:#38636a;font-size:10px;font-weight:800;line-height:1.35}</style>');
+  }
+})();
+</script>
 </body>
 </html>
