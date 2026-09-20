@@ -55,7 +55,7 @@
     <iframe id="screen" src="00-intro.html" title="이천 모험지도 현재 화면" allow="camera"></iframe>
     <div class="loading" id="loading" aria-live="polite"><span><i></i>화면을 준비하고 있어요</span></div>
   </section>
-  <footer class="product-footer" aria-label="제품 버전">이천 모험지도 · v1.0.19</footer>
+  <footer class="product-footer" aria-label="제품 버전">이천 모험지도 · v1.0.20</footer>
 </main>
 <script>
   const flow = {
@@ -78,6 +78,8 @@
     '06-account.html': 'journey'
   };
   const order = ['intro','signup','map','qr','journey'];
+  const inboundQr = new URLSearchParams(location.search).get('qr');
+  if(inboundQr) sessionStorage.setItem('icheonPendingQr', inboundQr);
   const frame = document.querySelector('#screen');
   const loading = document.querySelector('#loading');
   const currentTitle = document.querySelector('#currentTitle');
@@ -115,7 +117,8 @@
     showStep(next);
     syncAccess();
     loading.classList.remove('hide');
-    frame.src = flow[next].screen;
+    const pendingQr=sessionStorage.getItem('icheonPendingQr');
+    frame.src = next==='qr'&&pendingQr ? '02-qr-scanner.html?qr='+encodeURIComponent(pendingQr) : flow[next].screen;
     const nextUrl = location.pathname + '#' + next;
     if(addHistory) history.pushState({step:next},'',nextUrl);
     else history.replaceState({step:next},'',nextUrl);
@@ -124,7 +127,7 @@
   buttons.forEach(button=>button.addEventListener('click',()=>go(button.dataset.step,true)));
   document.querySelector('#resetFlow').addEventListener('click',()=>go('intro',true));
   window.addEventListener('message',event=>{
-    if(event.origin===location.origin&&event.data?.type==='icheon-profile-complete')syncAccess();
+    if(event.origin===location.origin&&event.data?.type==='icheon-profile-complete'){syncAccess();if(sessionStorage.getItem('icheonPendingQr'))go('qr',true);}
   });
 
   frame.addEventListener('load',()=>{
@@ -150,7 +153,7 @@
 
   syncAccess();
   const initial = location.hash.slice(1);
-  if(flow[initial]) go(initial,false); else showStep('intro');
+  if(inboundQr&&isRegistered()) go('qr',false); else if(flow[initial]) go(initial,false); else showStep('intro');
 </script>
 </body>
 </html>
